@@ -10,8 +10,44 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 0) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_19_081042) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "bookings", force: :cascade do |t|
+    t.date "start_time"
+    t.date "end_time"
+    t.string "location"
+    t.string "event_type"
+    t.integer "total_cost"
+    t.integer "status"
+    t.bigint "user_id", null: false
+    t.bigint "family_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["family_id"], name: "index_bookings_on_family_id"
+    t.index ["user_id"], name: "index_bookings_on_user_id"
+  end
+
+  create_table "families", force: :cascade do |t|
+    t.string "members"
+    t.string "location"
+    t.string "event_type"
+    t.integer "hourly_rate"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_families_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "username"
+    t.string "password"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_foreign_key "bookings", "families"
+  add_foreign_key "bookings", "users"
+  add_foreign_key "families", "users"
 end
