@@ -1,0 +1,22 @@
+<div class="container mt-4 p-4 border rounded" style="border-color: #FF5A5F;">
+  <h1 class="fw-bold mb-4" style="color: #FF5A5F;"><%= @family.members %></h1>
+
+  <div class="mb-3">
+    <h5 class="text-muted">Location:</h5>
+    <p class="fs-5"><%= @family.location %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="text-muted">Available for:</h5>
+    <p class="fs-5"><%= @family.event_type %></p>
+  </div>
+
+  <div class="mb-3">
+    <h5 class="text-muted">Hourly rate:</h5>
+    <p class="fs-5">¥<%= @family.hourly_rate %></p>
+  </div>
+</div>
+
+<div class="mt-4">
+  <%= link_to "← Back to the list", families_path, class: "btn btn-outline-primary" %>
+</div>
