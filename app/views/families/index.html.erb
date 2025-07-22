@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
+  <div class="container-fluid">
+    <a class="navbar-brand text-white fw-bold" href="/">Rent Your Family</a>
+    <div class="ms-auto">
+      <%= link_to "Register Your Family", new_family_path, class: "btn btn-light fw-semibold text-danger" %>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-4">
+  <h1>Families</h1>
+
+  <div class="list-group">
+    <% @families.each do |family| %>
+      <%= link_to family.members, family_path(family), class: "list-group-item list-group-item-action" %>
+    <% end %>
+  </div>
+</div>
