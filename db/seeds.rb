@@ -18,7 +18,7 @@ hourly_rate_options = [3000, 5000, 4500, 3200, 2800, 4000, 2500, 3600, 3900, 410
     location: location_options[i],
     event_type: event_type_options[i],
     hourly_rate: hourly_rate_options[i],
-    user_id: User.pluck(:id).sample || User.create!(username: "guest_#{rand(1000)}", password: "password").id
+    user_id: User.pluck(:id).sample || User.create!(email: "guest_#{rand(1000)}@email.com", username: "guest_#{rand(1000)}", password: "password").id
   )
 end
 
