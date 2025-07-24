@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   get "bookings", to: "bookings#index", as: "bookings"
   get "bookings/new", to: "bookings#new", as: "new_booking"
 
-  # Providers
+  # Users
   get "provider/new", to: "provider#new", as: "new_provider"
   post "provider", to: "provider#create", as: "create_provider"
   get "provider", to: "provider#index", as: "providers"
