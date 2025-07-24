@@ -1,16 +1,21 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
   <div class="container-fluid">
     <%= link_to "Rent Your Family", families_path, class: "navbar-brand text-white fw-bold" %>
+
     <div class="ms-auto d-flex gap-2">
-      <%= link_to "Sign Up", new_user_registration_path, class: "btn btn-light fw-semibold text-danger" %>
-      <%= link_to "Register Your Family", new_family_path, class: "btn btn-light fw-semibold text-danger" %>
+      <% if user_signed_in? %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-light fw-semibold text-danger" %>
+        <%= link_to "Dashboard", families_path, class: "btn btn-light fw-semibold text-danger" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-light fw-semibold text-danger" %>
+        <%= link_to "Register Your Family", new_user_registration_path, class: "btn btn-light fw-semibold text-danger" %>
+      <% end %>
     </div>
   </div>
 </nav>
 
 <div class="container mt-4">
   <h1>Welcome to Rent Your Family</h1>
-  <h5>Do your best leader!</h5>
 </div>
 
 <div class="container mt-4">
