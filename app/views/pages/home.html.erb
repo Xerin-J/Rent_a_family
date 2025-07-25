@@ -5,7 +5,7 @@
     <div class="ms-auto d-flex gap-2">
       <% if user_signed_in? %>
         <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-light fw-semibold text-danger" %>
-        <%= link_to "Dashboard", families_path, class: "btn btn-light fw-semibold text-danger" %>
+        <%= link_to "Dashboard", providers_path, class: "btn btn-light fw-semibold text-danger" %>
       <% else %>
         <%= link_to "Login", new_user_session_path, class: "btn btn-light fw-semibold text-danger" %>
         <%= link_to "Register Your Family", new_user_registration_path, class: "btn btn-light fw-semibold text-danger" %>

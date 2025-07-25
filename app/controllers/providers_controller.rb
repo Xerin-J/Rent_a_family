@@ -1,4 +1,6 @@
 class ProvidersController < ApplicationController
+  before_action :authenticate_user!
+  
   def index
     @provider = current_user.provider
   end

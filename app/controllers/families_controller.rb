@@ -8,10 +8,6 @@ class FamiliesController < ApplicationController
     @family = Family.find(params[:id])
   end
 
-  def new
-    @family = Family.new
-  end
-
   def create
     @family = Family.new(family_params)
     
