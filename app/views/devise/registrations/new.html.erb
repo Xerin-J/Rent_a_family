@@ -1,0 +1,46 @@
+<nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
+  <div class="container-fluid">
+    <%= link_to "Rent Your Family", families_path, class: "navbar-brand text-white fw-bold", style: "font-family: 'Circular Airbnb Cereal', Arial, sans-serif; font-size: 1.5rem;" %>
+
+    <div class="ms-auto d-flex gap-3">
+      <% if user_signed_in? %>
+        <%= link_to "Dashboard", providers_path, class: "btn btn-light fw-semibold text-danger rounded-pill shadow-sm", style: "min-width: 110px; font-family: 'Circular Airbnb Cereal', Arial, sans-serif;" %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-light fw-semibold text-danger rounded-pill shadow-sm", style: "min-width: 110px; font-family: 'Circular Airbnb Cereal', Arial, sans-serif;" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-light fw-semibold text-danger rounded-pill shadow-sm", style: "min-width: 100px; font-family: 'Circular Airbnb Cereal', Arial, sans-serif;" %>
+        <%= link_to "Register Your Family", new_user_registration_path, class: "btn btn-light fw-semibold text-danger rounded-pill shadow-sm", style: "min-width: 140px; font-family: 'Circular Airbnb Cereal', Arial, sans-serif;" %>
+      <% end %>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5" style="font-family: 'Circular Airbnb Cereal', Arial, sans-serif;">
+  <h1 class="mb-4" style="color: #484848;">Welcome back!</h1>
+
+  <%# This would go inside your Devise sign-up form (new.html.erb) %>
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+    <div class="mb-3">
+      <%= f.label :email, class: "form-label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control rounded-pill shadow-sm" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :password, class: "form-label" %>
+      <%= f.password_field :password, autocomplete: "new-password", class: "form-control rounded-pill shadow-sm" %>
+    </div>
+
+    <div class="mb-3">
+      <%= f.label :password_confirmation, class: "form-label" %>
+      <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control rounded-pill shadow-sm" %>
+    </div>
+
+    <div class="mb-4">
+      <%= f.label :role, "Choose your role", class: "form-label" %><br />
+      <%= f.select :role, options_for_select([["Guest", "guest"], ["Provider", "provider"]]), {}, class: "form-select rounded-pill shadow-sm" %>
+    </div>
+
+    <div>
+      <%= f.submit "Sign Up", class: "btn btn-danger rounded-pill px-5 shadow-sm" %>
+    </div>
+  <% end %>
+</div>

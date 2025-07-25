@@ -5,10 +5,8 @@ class ProvidersController < ApplicationController
     @provider = current_user.provider
   end
 
-  def show
-  end
-
   def new
+    @provider = Provider.new
   end
 
   def create

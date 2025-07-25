@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   # get "bookings/new", to: "bookings#new", as: "new_booking"
 
   # Provider
-  resources :providers, only: [:index, :show, :new, :create, :update]
+  resources :providers, only: [:index, :new, :create, :update]
   # get "provider/new", to: "provider#new", as: "new_provider"
   # post "provider", to: "provider#create", as: "create_provider"
   # get "provider", to: "provider#index", as: "providers"
