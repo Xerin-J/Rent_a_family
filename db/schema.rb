@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_24_234723) do
+ActiveRecord::Schema[7.1].define(version: 2025_07_25_022453) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -37,6 +37,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_24_234723) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "provider_id"
+    t.index ["provider_id"], name: "index_families_on_provider_id"
     t.index ["user_id"], name: "index_families_on_user_id"
   end
 
@@ -45,6 +47,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_24_234723) do
     t.string "some_provider_fields"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "first_name"
+    t.string "last_name"
+    t.string "address"
     t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
@@ -66,6 +71,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_24_234723) do
 
   add_foreign_key "bookings", "families"
   add_foreign_key "bookings", "users"
+  add_foreign_key "families", "providers"
   add_foreign_key "families", "users"
   add_foreign_key "providers", "users"
 end

@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
 
   # Families
-  resources :families, only: [:index, :show, :create] do
+  resources :families, only: [:index, :show, :new, :create] do
     resources :bookings, only: [:index, :show, :new, :create]
   end
   # get "family", to: "families#index", as: "families"
