@@ -21,7 +21,14 @@
 
   <div class="list-group">
     <% @families.each do |family| %>
-      <%= link_to family.members, family_path(family), class: "list-group-item list-group-item-action" %>
+      <div class="list-group-item">
+        <div class="d-flex align-items-center gap-3">
+            <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{family.members}", alt: "Random family", class: "img-placeholder", width: 100, height: 100 %>
+          <div>
+            <%= link_to family.members, family_path(family), class: "list-group-item list-group-item-action" %>
+          </div>
+        </div>
+      </div>
     <% end %>
   </div>
 </div>
