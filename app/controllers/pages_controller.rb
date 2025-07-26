@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   before_action :configure_devise_params, only: [:home]
 
   def home
-     @bookings = current_user && current_user.bookings
+      @bookings = current_user && current_user.bookings
     # now your view will have access to resource, resource_name, and devise_mapping
   end
 

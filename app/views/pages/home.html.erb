@@ -28,12 +28,20 @@
             <h5 class="card-title">My Bookings: <%= @bookings.count %></h5>
             <hr>
             <% @bookings.each do |booking| %>
-              <div class="mb-3">
-                <p class="mb-1"><strong>Family:</strong> <%= booking.family.members %></p>
-                <p class="mb-1"><strong>Family:</strong> <%= booking.family.location %></p>
-                <p class="mb-1"><strong>Family:</strong> <%= booking.family.event_type %></p>
-                <p class="mb-1"><strong>Start:</strong> <%= booking.start_time.strftime("%B %d, %Y") %></p>
-                <p><strong>End:</strong> <%= booking.end_time.strftime("%B %d, %Y") %></p>
+              <div class="container d-flex justify-content-between shadow p-4">
+
+                <div class="mb-3">
+                  <p class="mb-1"><strong>Family:</strong> <%= booking.family.members %></p>
+                  <p class="mb-1"><strong>Location:</strong> <%= booking.family.location %></p>
+                  <p class="mb-1"><strong>Event:</strong> <%= booking.family.event_type %></p>
+                  <p class="mb-1"><strong>Start:</strong> <%= booking.start_time.strftime("%B %d, %Y") %></p>
+                  <p class="mb-1"><strong>End:</strong> <%= booking.end_time.strftime("%B %d, %Y") %></p>
+
+                </div>
+                <div class="mb-3">
+                <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{booking.family.members}", alt: "Random family", class: "img-placeholder rounded", width: 150, height: 150  %>
+                <div class="bg-success-subtle"><p class="mb-1"><strong>Total:</strong> ¥ <%= booking.total_cost%></p></div>
+                </div>
               </div>
               <hr>
             <% end %>
