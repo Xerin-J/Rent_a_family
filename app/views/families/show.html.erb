@@ -20,3 +20,18 @@
 <div class="mt-4">
   <%= link_to "← Back to the list", families_path, class: "btn btn-outline-primary" %>
 </div>
+
+<div class="col-6">
+<%= simple_form_for [@family, @booking] do |b| %>
+  <div class="card">
+    <div class="mb-3">
+      <%= b.input :start_time, label:"MM/DD", input_html: { class: "form-control" } %>
+      <%= b.input :end_time, label:"MM/DD", input_html: { class: "form-control" } %>
+      <%= b.input :location, label:"Place", input_html: { class: "form-control" } %>
+      <%= b.input :event_type, label:"Party type", input_html: { class: "form-control" } %>
+      <%= b.input :total_cost, label:"$$$", input_html: { class: "form-control" } %>
+    </div>
+    <%= b.button :submit, "Book this family", class: "btn btn-primary" %>
+  </div>
+<% end %>
+</div>
