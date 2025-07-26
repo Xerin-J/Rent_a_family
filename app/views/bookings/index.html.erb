@@ -1,8 +1,8 @@
 
 <%= @bookings.each do |b| %>
   <div class="cl-6">
-    <p><%= b.family_id %></p>
-    <p><%= b.family_id.name %></p>
+    <p><%= b.family.id %></p>
+    <p><%= b.family.name %></p>
     <p><%= b.start_time %></p>
     <p><%= b.end_time %></p>
     <p><%= b.event_type %></p>
