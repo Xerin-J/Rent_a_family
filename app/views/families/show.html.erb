@@ -1,44 +1,105 @@
-<div class="container mt-4 p-4 border rounded" style="border-color: #FF5A5F;">
-  <h1 class="fw-bold mb-4" style="color: #FF5A5F;"><%= @family.members %></h1>
-
-  <div class="mb-3">
-    <h5 class="text-muted">Location:</h5>
-    <p class="fs-5"><%= @family.location %></p>
-  </div>
-
-  <div class="mb-3">
-    <h5 class="text-muted">Available for:</h5>
-    <p class="fs-5"><%= @family.event_type %></p>
-  </div>
-
-  <div class="mb-3">
-    <h5 class="text-muted">daily rate:</h5>
-    <p class="fs-5">¥<%= @family.hourly_rate %></p>
-  </div>
-  <div class="col-6">
-  <%= simple_form_for [@family, @booking] do |b| %>
-    <div class="card">
-      <div class="mb-3">
-
-      <div class="row justify-content-center">
-          <%= b.input :start_time,
-            as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
-
-          <%= b.input :end_time,
-            as: :string,
-            input_html: { data: { controller: "datepicker" } } %>
-
-      </div>
-
-        <%= b.input :total_cost, label:"$$$", input_html: { class: "form-control" } %>
-      </div>
-      <%= b.button :submit, "Book this family", class: "btn btn-primary" %>
+<nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
+  <div class="container-fluid">
+    <div class= "d-flex gap-4">
+      <%= link_to "Rent Your Family", families_path, class: "navbar-brand text-white fw-bold" %>
+      <%= link_to "Dashboard", root_path, class: "navbar-brand text-white fw-bold" %>
     </div>
-  <% end %>
+
+    <div class="ms-auto d-flex gap-2">
+      <% if user_signed_in? %>
+        <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-light fw-semibold text-danger" %>
+          <% if current_user.role == "provider"%>
+        <%= link_to "Dashboard", providers_path, class: "btn btn-light fw-semibold text-danger" %>
+          <% end %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-light fw-semibold text-danger" %>
+        <%= link_to "Register Your Family", new_provider_path, class: "btn btn-light fw-semibold text-danger" %>
+      <% end %>
+    </div>
   </div>
+</nav>
+
+<div class="container mt-4">
+  <!-- Family image -->
+  <div class="card mb-4 shadow-sm">
+    <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{@family.members}", 
+      alt: "Family image", 
+      class: "card-img-top", 
+      style: "object-fit: cover; height: 300px;" %>
+
+    <div class="card-body">
+      <!-- Family name -->
+      <h2 class="card-title fw-bold mb-3" style="color: #FF5A5F;"><%= @family.members %></h2>
+
+      <!-- Location -->
+      <p class="mb-2 text-muted"><strong>📍 Location:</strong> <span class="text-dark"><%= @family.location %></span></p>
+
+      <!-- Event type -->
+      <p class="mb-2 text-muted"><strong>📅 Available for:</strong> <span class="text-dark"><%= @family.event_type %></span></p>
+
+      <!-- Rate -->
+      <p class="mb-4 text-muted"><strong>💴 Daily Rate:</strong> <span class="text-dark">¥<%= @family.hourly_rate %></span></p>
+
+      <!-- Booking form -->
+      <div class="p-3 border rounded bg-light">
+        <%= simple_form_for [@family, @booking] do |b| %>
+          <div class="row g-3">
+            <div class="col-md-6">
+              <%= b.input :start_time, 
+                    label: "Start Time", 
+                    as: :string, 
+                    input_html: { data: { controller: "datepicker" }, class: "form-control" } %>
+            </div>
+
+            <div class="col-md-6">
+              <%= b.input :end_time, 
+                    label: "End Time", 
+                    as: :string, 
+                    input_html: { data: { controller: "datepicker" }, class: "form-control" } %>
+            </div>
+
+            <div class="col-12">
+              <%= b.input :total_cost, 
+                    label: "Total Cost (¥)", 
+                    input_html: { class: "form-control" } %>
+            </div>
+
+            <div class="col-12 text-end">
+              <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
 </div>
 
-<div class="mt-4">
-  <%= link_to "← Back to the list", families_path, class: "btn btn-outline-primary" %>
-</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+  const startTimeInput = document.querySelector("#booking_start_time");
+  const endTimeInput = document.querySelector("#booking_end_time");
+  const totalCostInput = document.querySelector("#booking_total_cost");
+
+  function calculateCost() {
+    const start = new Date(startTimeInput.value);
+    const end = new Date(endTimeInput.value);
+    const ratePerDay = 4000;
+
+    if (!isNaN(start) && !isNaN(end)) {
+      const timeDiff = end - start;
+      const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+
+      if (dayDiff > 0) {
+        const total = dayDiff * ratePerDay;
+        totalCostInput.value = total;
+      } else {
+        totalCostInput.value = 0;
+      }
+    }
+  }
+
+  startTimeInput.addEventListener("change", calculateCost);
+  endTimeInput.addEventListener("change", calculateCost);
+});
+</script>

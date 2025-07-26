@@ -1,5 +1,6 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
   <div class="container-fluid">
+    
     <%= link_to "Rent Your Family", families_path, class: "navbar-brand text-white fw-bold" %>
 
     <div class="ms-auto d-flex gap-2">
@@ -28,6 +29,7 @@
             <h5 class="card-title">My Bookings: <%= @bookings.count %></h5>
             <hr>
             <% @bookings.each do |booking| %>
+
               <div class="container d-flex justify-content-between shadow p-4">
 
                 <div class="mb-3">
@@ -42,6 +44,7 @@
                 <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{booking.family.members}", alt: "Random family", class: "img-placeholder rounded", width: 150, height: 150  %>
                 <div class="bg-success-subtle"><p class="mb-1"><strong>Total:</strong> ¥ <%= booking.total_cost%></p></div>
                 </div>
+
               </div>
               <hr>
             <% end %>
