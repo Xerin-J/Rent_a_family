@@ -16,7 +16,6 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to root_path(@booking.family), notice: "Your booking entry was successfully created!"
     else
-      raise
       redirect_to families_path(@family), status: :unprocessable_entity
     end
   end
