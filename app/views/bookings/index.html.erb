@@ -1,2 +1,10 @@
-<h1>Bookings#index</h1>
-<p>Find me in app/views/bookings/index.html.erb</p>
+
+<%= @bookings.each do |b| %>
+  <div class="cl-6">
+    <p><%= b.family_id %></p>
+    <p><%= b.family_id.name %></p>
+    <p><%= b.start_time %></p>
+    <p><%= b.end_time %></p>
+    <p><%= b.event_type %></p>
+  </div>
+<% end %>

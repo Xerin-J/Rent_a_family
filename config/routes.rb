@@ -15,7 +15,7 @@ Rails.application.routes.draw do
 
   # Bookings
   get "bookings", to: "bookings#index", as: "bookings"
-  get "bookings/new", to: "bookings#new", as: "new_booking"
+  get "bookings/new", to: "bookings#create", as: "new_booking"
 
   # Providers
   get "provider/new", to: "provider#new", as: "new_provider"
