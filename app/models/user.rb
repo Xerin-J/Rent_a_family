@@ -6,4 +6,5 @@ class User < ApplicationRecord
 
   has_many :families
   has_many :bookings
+  has_one :provider
 end

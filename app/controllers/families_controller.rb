@@ -14,9 +14,14 @@ class FamiliesController < ApplicationController
 
   def create
     @family = Family.new(family_params)
-    
+    provider = current_user.provider
+    unless provider
+      redirect_to new_provider_path, alert: "Please create your provider profile first."
+      return
+    end
+    @family.provider = provider
     if @family.save
-      redirect_to @family, notice: "Your family entry was successfully created!"
+      redirect_to providers_path, notice: "Your family entry was successfully created!"
     else
       render :new, status: :unprocessable_entity
     end
