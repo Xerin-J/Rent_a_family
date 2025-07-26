@@ -84,7 +84,7 @@
   function calculateCost() {
     const start = new Date(startTimeInput.value);
     const end = new Date(endTimeInput.value);
-    const ratePerDay = 4000;
+    const ratePerDay = <%= @family.hourly_rate %>;
 
     if (!isNaN(start) && !isNaN(end)) {
       const timeDiff = end - start;
