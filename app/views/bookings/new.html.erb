@@ -1,2 +1,16 @@
 <h1>Bookings#new</h1>
 <p>Find me in app/views/bookings/new.html.erb</p>
+<div class="col-6">
+<%= simple_form_for @booking do |b| %>
+  <div class="card">
+    <div class="mb-3">
+      <%= b.input :start_time, label:"MM/DD", input_html: { class: "form-control" } %>
+      <%= b.input :end_time, label:"MM/DD", input_html: { class: "form-control" } %>
+      <%= b.input :location, label:"Place", input_html: { class: "form-control" } %>
+      <%= b.input :event_type, label:"Party type", input_html: { class: "form-control" } %>
+      <%= b.input :total_cost, label:"$$$", input_html: { class: "form-control" } %>
+    </div>
+    <%= b.button :submit, "Book this family", class: "btn btn-primary" %>
+  </div>
+<% end %>
+</div>
