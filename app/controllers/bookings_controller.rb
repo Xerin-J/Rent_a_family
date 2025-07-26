@@ -14,7 +14,7 @@ class BookingsController < ApplicationController
     @booking.user = current_user
     @booking.family = Family.find(params[:family_id])
     if @booking.save
-      redirect_to family_path(@booking.family), notice: "Your booking entry was successfully created!"
+      redirect_to root_path(@booking.family), notice: "Your booking entry was successfully created!"
     else
       render :new, status: :unprocessable_entity
     end
