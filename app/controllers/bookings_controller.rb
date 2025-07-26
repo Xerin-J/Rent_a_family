@@ -16,7 +16,8 @@ class BookingsController < ApplicationController
     if @booking.save
       redirect_to root_path(@booking.family), notice: "Your booking entry was successfully created!"
     else
-      render :new, status: :unprocessable_entity
+      raise
+      redirect_to families_path(@family), status: :unprocessable_entity
     end
   end
 
@@ -26,6 +27,6 @@ class BookingsController < ApplicationController
 
   private
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :location, :event_type, :total_cost)
+    params.require(:booking).permit(:start_time, :end_time, :total_cost)
   end
 end
