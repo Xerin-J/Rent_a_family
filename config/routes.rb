@@ -26,3 +26,4 @@ Rails.application.routes.draw do
   # get "provider/:id", to: "provider#show", as: "provider"
   # patch "provider/:id", to: "provider#update", as: "update_provider"
 end
+
