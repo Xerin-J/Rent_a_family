@@ -17,7 +17,14 @@
 </nav>
 
 <div class="container mt-4">
-  <h1>Welcome to Rent Your Family</h1>
+
+<% if current_user && current_user.role == "guest"%>
+<div class= "d-flex justify-content-center">
+  <h2 >About me</h2>
+</div>
+  
+<% end %>
+
 </div>
 
 <div class="container mt-4">
