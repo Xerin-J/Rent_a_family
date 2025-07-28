@@ -6,7 +6,7 @@ class Booking < ApplicationRecord
   validates :end_time, presence: true
   # validates :location, presence: true
   # validates :event_type, presence: true
-  validates :total_cost, presence: true, numericality: { only_integer: true, greater_than: 0 }
+  validates :total_cost, presence: true, numericality: { greater_than: 0 }
 
   # validate :start_time_cannot_be_in_the_past
   # validate :end_after_start

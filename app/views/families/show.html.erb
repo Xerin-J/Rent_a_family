@@ -57,15 +57,35 @@
                     input_html: { data: { controller: "datepicker" }, class: "form-control" } %>
             </div>
 
+            <div class="col-md-6">
+              <%= b.input :start_hour,
+                  label: "From",
+                  as: :string,
+                  input_html: { class: "form-control", type: "time", step: 900 } %>
+            </div>
+
+            <div class="col-md-6">
+              <%= b.input :end_hour,
+                  label: "To",
+                  as: :string,
+                  input_html: { class: "form-control", type: "time", step: 900 } %>
+            </div>
+
             <div class="col-12">
               <%= b.input :total_cost, 
                     label: "Total Cost (¥)", 
                     input_html: { class: "form-control" } %>
             </div>
 
-            <div class="col-12 text-end">
+            <% if user_signed_in? %>
               <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
-            </div>
+            <% else %>
+              <%= button_tag "Book this family", 
+                  type: "button", 
+                  class: "btn btn-danger px-4", 
+                  onclick: "alert('You must be logged in!'); return false;" %>
+            <% end %>
+
           </div>
         <% end %>
       </div>
@@ -76,29 +96,56 @@
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-  const startTimeInput = document.querySelector("#booking_start_time");
-  const endTimeInput = document.querySelector("#booking_end_time");
-  const totalCostInput = document.querySelector("#booking_total_cost");
+    const startDateInput = document.querySelector("#booking_start_time");
+    const endDateInput = document.querySelector("#booking_end_time");
+    const startHourInput = document.querySelector("#booking_start_hour");
+    const endHourInput = document.querySelector("#booking_end_hour");
+    const totalCostInput = document.querySelector("#booking_total_cost");
 
-  function calculateCost() {
-    const start = new Date(startTimeInput.value);
-    const end = new Date(endTimeInput.value);
-    const ratePerDay = <%= @family.hourly_rate %>;
+    // hourly rate from backend, passed safely as float
+    const hourlyRate = <%= @family.hourly_rate.to_f %>;
 
-    if (!isNaN(start) && !isNaN(end)) {
-      const timeDiff = end - start;
-      const dayDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+    function calculateCost() {
+      const startDate = new Date(startDateInput.value);
+      const endDate = new Date(endDateInput.value);
 
-      if (dayDiff > 0) {
-        const total = dayDiff * ratePerDay;
-        totalCostInput.value = total;
+      const startHourParts = startHourInput.value.split(":");
+      const endHourParts = endHourInput.value.split(":");
+
+      if (
+        !isNaN(startDate) && !isNaN(endDate) &&
+        startHourParts.length === 2 && endHourParts.length === 2
+      ) {
+        // Calculate total days (full days between dates)
+        let dayDiff = Math.floor((endDate - startDate) / (1000 * 60 * 60 * 24));
+
+        // Calculate start and end hours in decimal (e.g., 9:15 = 9.25)
+        const startHourDecimal = parseInt(startHourParts[0]) + parseInt(startHourParts[1]) / 60;
+        const endHourDecimal = parseInt(endHourParts[0]) + parseInt(endHourParts[1]) / 60;
+
+        // Calculate the hourly difference for partial days
+        let hourDiff = endHourDecimal - startHourDecimal;
+
+        // If end time is before start time, consider it 0 (or handle as needed)
+        if (hourDiff < 0) hourDiff = 0;
+
+        // Total hours = full days * 24 + partial hours
+        const totalHours = dayDiff * 24 + hourDiff;
+
+        if (totalHours > 0) {
+          const totalCost = totalHours * hourlyRate;
+          totalCostInput.value = totalCost.toFixed(2); // two decimals
+        } else {
+          totalCostInput.value = 0;
+        }
       } else {
         totalCostInput.value = 0;
       }
     }
-  }
 
-  startTimeInput.addEventListener("change", calculateCost);
-  endTimeInput.addEventListener("change", calculateCost);
-});
+    startDateInput.addEventListener("change", calculateCost);
+    endDateInput.addEventListener("change", calculateCost);
+    startHourInput.addEventListener("change", calculateCost);
+    endHourInput.addEventListener("change", calculateCost);
+  });
 </script>
