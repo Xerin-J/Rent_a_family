@@ -5,7 +5,7 @@ class ApplicationController < ActionController::Base
     if resource.role == "provider"
       providers_path  # provider dashboard path
     else
-      root_path       # regular user landing page
+      guests_path       # guest landing page
     end
   end
 
