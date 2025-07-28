@@ -32,8 +32,9 @@ hourly_rate_options = [3000, 5000, 4500, 3200, 2800, 4000, 2500, 3600, 3900, 410
     location: locations[i],
     event_type: event_type_options[i],
     hourly_rate: hourly_rate_options[i],
-    provider: provider
+    provider: provider,
+    rating: rand(3..5)
   )
 end
 
-puts "🌸 Seeded 10 providers and their beautiful families with your special names!"
+puts "🌸 Seeded 10 providers and their beautiful families with special ratings!"

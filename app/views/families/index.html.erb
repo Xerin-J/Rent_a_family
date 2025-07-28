@@ -19,22 +19,3 @@
     </div>
   </div>
 </nav>
-
-
-
-<div class="container mt-4">
-  <h1>Families</h1>
-
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-  <% @families.each do |family| %>
-    <div class="col">
-      <div class="card h-100 shadow-sm">
-        <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{family.members}", alt: "Random family", class: "card-img-top", style: "object-fit: cover; height: 200px;" %>
-        <div class="card-body">
-          <h5 class="card-title fw-bold"><%= link_to family.members, family_path(family), class: "text-decoration-none text-dark" %></h5>
-        </div>
-      </div>
-    </div>
-  <% end %>
-</div>
-</div>
