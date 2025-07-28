@@ -78,8 +78,13 @@
             </div>
 
             <div class="col-12 text-end">
-              <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
+              <% if user_signed_in? %>
+                <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
+              <% else %>
+                <%= b.button :submit, "Book this family", class: "btn btn-danger px-4", onclick: "alert('You must be logged in!')"%>
+              <% end %>
             </div>
+
           </div>
         <% end %>
       </div>
