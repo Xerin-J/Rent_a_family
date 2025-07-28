@@ -35,7 +35,7 @@
 
           <!-- Rating -->
           <% if family.rating? %>
-            <h6 class="d-flex justify-content-end"><%= family.rating %></h6>
+            <h6 class="d-flex justify-content-end"> <%= '🌟' * family.rating.to_i %> (<%= family.rating %>) </h6>
           <% else %>
             <p class="d-flex justify-content-end">Newly Registered!</p>  
           <% end %>  
