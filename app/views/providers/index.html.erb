@@ -26,7 +26,11 @@
     </h1>
 
     <% if user_signed_in? %>
-      <%= link_to "Register Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+     <% if current_user.provider.present? %>
+       <%= link_to "Register Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+     <% else %>  
+      <%= link_to "Register Your Family", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+     <% end %> 
     <% end %>
   <% end %>
 </div>
