@@ -77,13 +77,14 @@
                     input_html: { class: "form-control" } %>
             </div>
 
-            <div class="col-12 text-end">
-              <% if user_signed_in? %>
-                <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
-              <% else %>
-                <%= b.button :submit, "Book this family", class: "btn btn-danger px-4", onclick: "alert('You must be logged in!')"%>
-              <% end %>
-            </div>
+            <% if user_signed_in? %>
+              <%= b.button :submit, "Book this family", class: "btn btn-danger px-4" %>
+            <% else %>
+              <%= button_tag "Book this family", 
+                  type: "button", 
+                  class: "btn btn-danger px-4", 
+                  onclick: "alert('You must be logged in!'); return false;" %>
+            <% end %>
 
           </div>
         <% end %>
