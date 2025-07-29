@@ -26,7 +26,7 @@
 
   <!--This will show the uploaded photo where it exists, otherwise will use the generated one-->
   <% if @family.photo.attached? %>
-    <%= image_tag @family.photo, alt: "#{@family.members} photo" , class: "card-img-center p-3 border rounded bg-light" ,
+    <%= image_tag @family.photo, alt: "#{@family.members} photo" , class: "card-img-center p-2 border rounded bg-light" ,
       style: "object-fit: cover; height: 300px; width: 600px" %>
       <% else %>
         <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{@family.members}" ,
@@ -39,7 +39,7 @@
                 <%= @family.members %>
               </h2>
 
-              <p class="card-title fw-bold mb-3 d-flex justify-content-end">
+              <p class="card-title fw-bold mb-4 d-flex justify-content-end">
                 <%= @family.description %>
               </p>
 
@@ -55,7 +55,7 @@
 
               <!-- Rate -->
               <p class="mb-4 text-muted"><strong>💴 Hourly Rate:</strong> <span class="text-dark">¥<%=
-                    @family.hourly_rate %></span></p>
+              @family.hourly_rate %></span></p>
   </div>
 </div>
 
