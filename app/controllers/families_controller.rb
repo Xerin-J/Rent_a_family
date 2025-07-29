@@ -28,9 +28,15 @@ class FamiliesController < ApplicationController
     end
   end
 
+  def destroy
+    @family = Family.find(params[:id])
+    @family.destroy
+    redirect_to providers_path, notice: "Listing deleted!"
+  end
+
   private
 
   def family_params
-    params.require(:family).permit(:members, :location, :event_type, :hourly_rate)
+    params.require(:family).permit(:members, :location, :event_type, :hourly_rate, :description, :photo)
   end
 end

@@ -20,16 +20,18 @@
     <h1 class="text-primary fw-bold mb-0">
       Welcome back, <%= current_user.provider.family.members %>!
     </h1>
+    <%= button_to "Delete listing!", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
   <% else %>
     <h1 class="text-secondary mb-0">
       Welcome back!
     </h1>
 
+    <!-- The button register your family changes functionality based on wheater the provider exists or not-->
     <% if user_signed_in? %>
      <% if current_user.provider.present? %>
        <%= link_to "Register Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
      <% else %>  
-      <%= link_to "Register Your Family", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+      <%= link_to "Create New Provider", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
      <% end %> 
     <% end %>
   <% end %>
