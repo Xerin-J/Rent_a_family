@@ -75,4 +75,6 @@ end
 
 gem "devise"
 gem "ostruct"
+gem "pg_search"
 gem "cloudinary"
+

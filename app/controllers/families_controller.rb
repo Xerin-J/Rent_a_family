@@ -1,7 +1,13 @@
 class FamiliesController < ApplicationController
 
   def index
-    @families = Family.all
+    if params[:query].present?
+      # sql_subquery = "event_type ILIKE :query OR location ILIKE :query"
+      # @families = Family.where(sql_subquery, query: "%#{params[:query]}%")
+      @families = Family.search_by_location_and_event_type(params[:query])
+    else
+      @families = Family.all
+    end
   end
 
   def show
