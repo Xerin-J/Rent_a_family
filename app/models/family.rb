@@ -1,6 +1,7 @@
 class Family < ApplicationRecord
   has_many :bookings
   belongs_to :provider, class_name: "Provider"
+  has_one_attached :photo
 
   validates :members, presence: true, length: { minimum: 1, maximum: 100 }
   validates :location, presence: true

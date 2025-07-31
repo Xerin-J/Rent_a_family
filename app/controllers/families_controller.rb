@@ -34,9 +34,28 @@ class FamiliesController < ApplicationController
     end
   end
 
+  def edit
+    @family = Family.find(params[:id])
+  end
+
+  def update
+    @family = Family.find(params[:id])
+    if @family.update(family_params)
+      redirect_to providers_path, notice: "Listing updated"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @family = Family.find(params[:id])
+    @family.destroy
+    redirect_to providers_path, notice: "Listing deleted!"
+  end
+
   private
 
   def family_params
-    params.require(:family).permit(:members, :location, :event_type, :hourly_rate)
+    params.require(:family).permit(:members, :location, :event_type, :hourly_rate, :description, :photo)
   end
 end

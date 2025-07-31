@@ -17,20 +17,51 @@
 
 <div class="container mt-4 d-flex justify-content-between align-items-center">
   <% if user_signed_in? && current_user.provider && current_user.provider.family.present? %>
-    <h1 class="text-primary fw-bold mb-0">
-      Welcome back, <%= current_user.provider.family.members %>!
-    </h1>
+   <h3 style="font-family: 'Pacifico', cursive; font-weight: 400; font-size: 1.75rem; color: #FF6B6B; margin-bottom: 0;">
+    Welcome back, <%= current_user.provider.family.members %>!
+   </h3>
+
+    <div class="d-flex justify-content-between gap-4">
+      <%= link_to "View  Listing", family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+      <%= link_to "Edit  Listing", edit_family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+      <%= button_to "Delete Listing", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
+    </div>
+   
   <% else %>
     <h1 class="text-secondary mb-0">
       Welcome back!
     </h1>
 
+    <!-- The button register your family changes functionality based on wheater the provider exists or not-->
     <% if user_signed_in? %>
      <% if current_user.provider.present? %>
-       <%= link_to "Register Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+       <%= link_to "List Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
      <% else %>  
-      <%= link_to "Register Your Family", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+      <%= link_to "Create New Provider", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
      <% end %> 
     <% end %>
   <% end %>
+</div>
+
+<!--Host info-->
+
+<div class="container d-flex justify-content-center">
+  <div class="card-img-center p-2 border rounded bg-light">
+
+  <% if current_user.provider&.photo&.attached? %>
+  <div class="container d-flex justify-content-center">
+    <div class="card-img-center p-2 border rounded bg-light">
+      <%= image_tag current_user.provider.photo, 
+            alt: "#{current_user.provider.first_name} photo",
+            class: "card-img-center p-2 border rounded bg-light",
+            style: "object-fit: cover; height: 300px; width: 600px" %>
+      <h3><%= current_user.provider.first_name %></h3>
+    </div>
+  </div>
+<% else %>
+  <p class="text-center text-muted mt-4">No provider profile or photo found.</p>
+<% end %>
+
+    <h3> <%= current_user.provider.first_name%> </h3>
+  </div>
 </div>
