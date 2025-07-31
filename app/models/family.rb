@@ -6,4 +6,11 @@ class Family < ApplicationRecord
   validates :location, presence: true
   validates :hourly_rate, presence: true, numericality: { only_integer: true, greater_than: 0 }
   validates :event_type, presence: true
+
+  include PgSearch::Model
+  pg_search_scope :search_by_location_and_event_type,
+  against: [ :location, :event_type ],
+  using: {
+    tsearch: { prefix: true }
+  }
 end
