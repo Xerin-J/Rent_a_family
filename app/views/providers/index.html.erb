@@ -16,32 +16,38 @@
 </nav>
 
 <div class="container mt-4 d-flex justify-content-between align-items-center">
-  <% if user_signed_in? && current_user.provider && current_user.provider.family.present? %>
+  <% if user_signed_in? && current_user.provider.present? %>
    <h3 style="font-family: 'Pacifico', cursive; font-weight: 400; font-size: 1.75rem; color: #FF6B6B; margin-bottom: 0;">
     Welcome back, <%= current_user.provider.first_name %>!
    </h3>
-
-    <div class="d-flex justify-content-between gap-4">
-      <%= link_to "View  Listing", family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
-      <%= link_to "Edit  Listing", edit_family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
-      <%= button_to "Delete Listing", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
-    </div>
    
   <% else %>
     <h1 class="text-secondary mb-0">
       Welcome back!
     </h1>
+  <% end %>  
 
     <!-- The button register your family changes functionality based on wheater the provider exists or not-->
-    <% if user_signed_in? %>
-     <% if current_user.provider.present? %>
-       <%= link_to "List Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
-     <% else %>  
+  <% if user_signed_in? %>
+    <% if current_user.provider.present? %>
+      <% unless current_user.provider.family.present? %>
+        <%= link_to "List Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+      <% end %>
+    <% else %>  
       <%= link_to "Create New Provider", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
-     <% end %> 
-    <% end %>
+    <% end %> 
+
+    <% if current_user.provider&.family.present? %>
+      <div class="d-flex justify-content-between gap-4">
+        <%= link_to "View Listing", family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+        <%= link_to "Edit Listing", edit_family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+        <%= button_to "Delete Listing", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
+      </div>
+    <% end %> 
   <% end %>
-</div>
+  </div>
+
+
 
 <!--Host info-->
 
