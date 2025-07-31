@@ -69,23 +69,47 @@
           <h3 class="mt-2 mb-0"><%= current_user.provider.first_name %></h3>
           <h6 class="text-muted">Host</h6>
         </div>
-
-        <!-- Rating (on the right) -->
-        <div class="ms-auto text-end">
+        
+        <div class="d-flex flex-column text-end ms-auto pe-4">
+          <!-- Rating (on the right) -->
           <% if current_user.provider.family.present? %>
             <% if current_user.provider.family.rating.present? %>
-              <h6 class="mb-1 text-center">Rating: <%= current_user.provider.family.rating %></h6>
+              <h6 class="mb-0 text-center"><strong><%= current_user.provider.family.rating %></strong>⭐</h6>
               <p class="text-muted text-center" style="font-size: 0.75rem;">Rating</p>
+              <hr>
             <% else %>
-              <h6 class="text-muted text-center">No rating yet</h6>
+              <h6 class="text-muted text-center"></h6>
               <p class="text-muted text-center" style="font-size: 0.75rem;">Rating</p>
               <hr>
             <% end %>
           <% end %>
+        
+        <!-- Bookings -->
+          <% if current_user.provider.family.present? %>
+            <% if current_user.provider.family.bookings.present? %>
+              <h6 class="mb-1 text-center"> <strong><%= current_user.provider.family.bookings.count %></strong></h6>
+              <% if current_user.provider.family.bookings.count <= 1%>
+               <p class="text-muted text-center" style="font-size: 0.75rem;">Booking</p>
+               <hr>
+              <% else %>
+               <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
+               <hr>
+              <% end %>  
+            <% else %>
+              <h6 class="text-muted text-center"></h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
+              <hr>
+            <% end %>
+          <% end %>
+
         </div>
-      </div>
+       </div>
+     </div>
+
     <% end %>
 
   </div>
 </div>
+
+
 
