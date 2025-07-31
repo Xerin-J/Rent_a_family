@@ -46,22 +46,27 @@
 <!--Host info-->
 
 <div class="container d-flex justify-content-center">
-  <div class="card-img-center p-2 border rounded bg-light">
+  <div class="card-img-center p-2 border bg-light" style="border-radius: 20px; margin-top: 100px">
 
-  <% if current_user.provider&.photo&.attached? %>
+<% if current_user.provider.present? %>
   <div class="container d-flex justify-content-center">
-    <div class="card-img-center p-2 border rounded bg-light">
-      <%= image_tag current_user.provider.photo, 
-            alt: "#{current_user.provider.first_name} photo",
-            class: "card-img-center p-2 border rounded bg-light",
-            style: "object-fit: cover; height: 300px; width: 600px" %>
-      <h3><%= current_user.provider.first_name %></h3>
+    <div class="card-img-center">
+      <% if current_user.provider.photo.attached? %>
+        <%= image_tag current_user.provider.photo,
+              alt: "#{current_user.provider.first_name} photo",
+              class: "card-img-center p-2 bg-light",
+              style: "object-fit: cover; height: 200px; width: 200px; border-radius: 50%" %>
+      <% else %>
+        <p class="text-muted text-center">No photo uploaded.</p>
+      <% end %>
+
+      <div class="d-flex flex-column">
+        <h3 class="text-center mt-1"><%= current_user.provider.first_name %></h3>
+        <h6 class="text-center" style="color: #6c757d;">Host</h6>
+      </div>
+
     </div>
   </div>
 <% else %>
-  <p class="text-center text-muted mt-4">No provider profile or photo found.</p>
+  <p class="text-center text-muted mt-4">You haven't created a provider profile yet.</p>
 <% end %>
-
-    <h3> <%= current_user.provider.first_name%> </h3>
-  </div>
-</div>
