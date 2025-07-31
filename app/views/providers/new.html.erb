@@ -1,4 +1,4 @@
-<h1 class="text-center mt-4 mb-4">Create Your Provider Profile</h1>
+<h1 class="text-center mt-4 mb-4">Create Your Host Profile</h1>
 
 <%= simple_form_for(@provider, html: { class: "container mt-5", style: "max-width: 600px;" }) do |f| %>
   <% if @provider.errors.any? %>
@@ -15,6 +15,10 @@
   <%= f.input :first_name, required: true, label: "First Name", input_html: { class: "rounded-pill shadow-sm" } %>
   <%= f.input :last_name, required: true, label: "Last Name", input_html: { class: "rounded-pill shadow-sm" } %>
   <%= f.input :address, required: true, label: "Address", input_html: { class: "rounded-pill shadow-sm" } %>
+  <div class="mb-4">
+    <%= f.label :photo, "Upload 1 picture", class: "form-label fw-semibold", style: "color: #484848;" %><br>
+    <%= f.file_field :photo, class: "form-control rounded-pill shadow-sm", style: "padding: 0.75rem 1.25rem;" %>
+  </div>
 
   <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
 
