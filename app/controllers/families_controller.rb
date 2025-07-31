@@ -49,9 +49,13 @@ class FamiliesController < ApplicationController
 
   def destroy
     @family = Family.find(params[:id])
+   begin
     @family.destroy
     redirect_to providers_path, notice: "Listing deleted!"
-  end
+   rescue ActiveRecord::InvalidForeignKey
+    redirect_to providers_path, alert: "This family has existing bookings and cannot be deleted."
+   end
+  end 
 
   private
 

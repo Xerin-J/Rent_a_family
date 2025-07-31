@@ -16,52 +16,100 @@
 </nav>
 
 <div class="container mt-4 d-flex justify-content-between align-items-center">
-  <% if user_signed_in? && current_user.provider && current_user.provider.family.present? %>
+  <% if user_signed_in? && current_user.provider.present? %>
    <h3 style="font-family: 'Pacifico', cursive; font-weight: 400; font-size: 1.75rem; color: #FF6B6B; margin-bottom: 0;">
-    Welcome back, <%= current_user.provider.family.members %>!
+    Welcome back, <%= current_user.provider.first_name %>!
    </h3>
-
-    <div class="d-flex justify-content-between gap-4">
-      <%= link_to "View  Listing", family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
-      <%= link_to "Edit  Listing", edit_family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
-      <%= button_to "Delete Listing", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
-    </div>
    
   <% else %>
     <h1 class="text-secondary mb-0">
       Welcome back!
     </h1>
+  <% end %>  
 
     <!-- The button register your family changes functionality based on wheater the provider exists or not-->
-    <% if user_signed_in? %>
-     <% if current_user.provider.present? %>
-       <%= link_to "List Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
-     <% else %>  
+  <% if user_signed_in? %>
+    <% if current_user.provider.present? %>
+      <% unless current_user.provider.family.present? %>
+        <%= link_to "List Your Family", new_family_path, class: "btn btn-outline-danger rounded-pill px-4" %>
+      <% end %>
+    <% else %>  
       <%= link_to "Create New Provider", new_provider_path, class: "btn btn-outline-danger rounded-pill px-4" %>
-     <% end %> 
-    <% end %>
+    <% end %> 
+
+    <% if current_user.provider&.family.present? %>
+      <div class="d-flex justify-content-between gap-4">
+        <%= link_to "View Listing", family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+        <%= link_to "Edit Listing", edit_family_path(current_user.provider.family), class: "btn btn-outline-danger rounded-pill px-4" %>
+        <%= button_to "Delete Listing", family_path(current_user.provider.family), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-outline-danger rounded-pill px-4" %>
+      </div>
+    <% end %> 
   <% end %>
-</div>
+  </div>
 
-<!--Host info-->
 
+
+<!-- Host Info Section -->
 <div class="container d-flex justify-content-center">
-  <div class="card-img-center p-2 border rounded bg-light">
+  <div class="p-4 border bg-light" style="border-radius: 20px; margin-top: 100px; width: 350px;">
 
-  <% if current_user.provider&.photo&.attached? %>
-  <div class="container d-flex justify-content-center">
-    <div class="card-img-center p-2 border rounded bg-light">
-      <%= image_tag current_user.provider.photo, 
-            alt: "#{current_user.provider.first_name} photo",
-            class: "card-img-center p-2 border rounded bg-light",
-            style: "object-fit: cover; height: 300px; width: 600px" %>
-      <h3><%= current_user.provider.first_name %></h3>
-    </div>
-  </div>
-<% else %>
-  <p class="text-center text-muted mt-4">No provider profile or photo found.</p>
-<% end %>
+    <% if current_user.provider.present? %>
+      <div class="d-flex gap-4 align-items-center">
+        <!-- Photo + Name -->
+        <div class="text-center">
+          <% if current_user.provider.photo.attached? %>
+            <%= image_tag current_user.provider.photo,
+                  alt: "#{current_user.provider.first_name} photo",
+                  class: "bg-light",
+                  style: "object-fit: cover; height: 150px; width: 150px; border-radius: 50%;" %>
+          <% else %>
+            <p class="text-muted">No photo uploaded.</p>
+          <% end %>
 
-    <h3> <%= current_user.provider.first_name%> </h3>
+          <h3 class="mt-2 mb-0"><%= current_user.provider.first_name %></h3>
+          <h6 class="text-muted">Host</h6>
+        </div>
+        
+        <div class="d-flex flex-column text-end ms-auto pe-4">
+          <!-- Rating (on the right) -->
+          <% if current_user.provider.family.present? %>
+            <% if current_user.provider.family.rating.present? %>
+              <h6 class="mb-0 text-center"><strong><%= current_user.provider.family.rating %></strong>⭐</h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Rating</p>
+              <hr>
+            <% else %>
+              <h6 class="text-muted text-center"></h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Rating</p>
+              <hr>
+            <% end %>
+          <% end %>
+        
+        <!-- Bookings -->
+          <% if current_user.provider.family.present? %>
+            <% if current_user.provider.family.bookings.present? %>
+              <h6 class="mb-1 text-center"> <strong><%= current_user.provider.family.bookings.count %></strong></h6>
+              <% if current_user.provider.family.bookings.count <= 1%>
+               <p class="text-muted text-center" style="font-size: 0.75rem;">Booking</p>
+               <hr>
+              <% else %>
+               <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
+               <hr>
+              <% end %>  
+            <% else %>
+              <h6 class="text-muted text-center"></h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
+              <hr>
+            <% end %>
+          <% end %>
+
+        </div>
+       </div>
+     </div>
+
+    <% end %>
+
   </div>
 </div>
+
+
+
