@@ -18,7 +18,7 @@
 <div class="container mt-4 d-flex justify-content-between align-items-center">
   <% if user_signed_in? && current_user.provider && current_user.provider.family.present? %>
    <h3 style="font-family: 'Pacifico', cursive; font-weight: 400; font-size: 1.75rem; color: #FF6B6B; margin-bottom: 0;">
-    Welcome back, <%= current_user.provider.family.members %>!
+    Welcome back, <%= current_user.provider.first_name %>!
    </h3>
 
     <div class="d-flex justify-content-between gap-4">
