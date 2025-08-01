@@ -65,11 +65,10 @@
           <% else %>
             <p class="text-muted">No photo uploaded.</p>
           <% end %>
-
           <h3 class="mt-2 mb-0"><%= current_user.provider.first_name %></h3>
           <h6 class="text-muted">Host</h6>
         </div>
-        
+
         <div class="d-flex flex-column text-end ms-auto pe-4">
           <!-- Rating (on the right) -->
           <% if current_user.provider.family.present? %>
@@ -83,33 +82,28 @@
               <hr>
             <% end %>
           <% end %>
-        
-        <!-- Bookings -->
+
+          <!-- Bookings -->
           <% if current_user.provider.family.present? %>
             <% if current_user.provider.family.bookings.present? %>
-              <h6 class="mb-1 text-center"> <strong><%= current_user.provider.family.bookings.count %></strong></h6>
-              <% if current_user.provider.family.bookings.count <= 1%>
-               <p class="text-muted text-center" style="font-size: 0.75rem;">Booking</p>
-               <hr>
+              <h6 class="mb-1 text-center"><strong><%= current_user.provider.family.bookings.count %></strong></h6>
+              <% if current_user.provider.family.bookings.count <= 1 %>
+                <p class="text-muted text-center" style="font-size: 0.75rem;">Booking</p>
               <% else %>
-               <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
-               <hr>
-              <% end %>  
+                <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
+              <% end %>
+              <hr>
             <% else %>
               <h6 class="text-muted text-center"></h6>
               <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
               <hr>
             <% end %>
           <% end %>
-
         </div>
-       </div>
-     </div>
-
+      </div>
+    <% else %>
+      <p class="text-center text-muted m-0">Provider profile not created yet</p>
     <% end %>
 
   </div>
 </div>
-
-
-
