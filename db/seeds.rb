@@ -42,12 +42,12 @@ descriptions = [
 photo_urls = [
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753878254/premium_photo-1726797766978-11a0b18dc341_sq5n6r.jpg",
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753878674/photo-1752118632837-8cc84a63c5c9_dytzxw.jpg",
-  "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753878433/photo-1637034373762-331b87526bb5_zxjk60.jpg",
-  "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753879413/premium_photo-1723651236162-8f68426582ab_i9vye3.jpg",
+  "https://res.cloudinary.com/dgazqe2qa/image/upload/c_fill,w_600,h_300,g_auto/v1754014276/photo-1637034373863-cc2c90453764_v8j2tm.jpg",
+  "https://res.cloudinary.com/dgazqe2qa/image/upload/c_fill,w_600,h_300,g_auto/v1753879413/premium_photo-1723651236162-8f68426582ab_i9vye3.jpg",
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753879533/premium_photo-1682091354828-d5db1f94817e_beqxg4.jpg",
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753879933/premium_photo-1664304880671-368b1f467f5d_h7em1r.jpg",
-  "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753881670/premium_photo-1723651234678-6bb89227cf6f_p8ojjj.jpg",
-  "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753962881/elegant-family-three-dressy-attire-dark-blue-background-adds-touch-sophistication_171965-103068_uptlkd.jpg",
+  "https://res.cloudinary.com/dgazqe2qa/image/upload/c_fill,w_600,h_300,g_auto/v1754017154/premium_photo-1727552116205-86b8e9001379_zccmpr.jpg",
+  "https://res.cloudinary.com/dgazqe2qa/image/upload/c_fill,w_600,h_300,g_auto/v1753962881/elegant-family-three-dressy-attire-dark-blue-background-adds-touch-sophistication_171965-103068_uptlkd.jpg",
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753881664/premium_photo-1682094069738-19a65f3145b9_jvwuca.jpg",
   "https://res.cloudinary.com/dgazqe2qa/image/upload/v1753881871/portrait-of-asian-happy-family-sit-on-sofa-and-smile-look-at-camera-young-couple-parents_zmmyeh.jpg"
 ]
