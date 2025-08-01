@@ -1,10 +1,19 @@
-# Clear existing data if you want a fresh start (optional)
+# Clear existing data in the right order to avoid foreign key violations
 require "open-uri"
 
+# Destroy bookings first because they belong to families
+Booking.destroy_all
+
+# Destroy families next because they belong to providers
 Family.destroy_all
+
+# Then destroy providers because they belong to users
 Provider.destroy_all
+
+# Finally, destroy provider users
 User.where(role: 'provider').destroy_all
 
+# Now proceed with seeding fresh data
 members_options = [
   "The Watanabe Family", "The Sato Clan", "The Nakamura Group", "The Yamamoto Crew",
   "The Kimura Household", "The Fujimoto Siblings", "The Ishikawa Family", "The Takahashi Trio",
@@ -55,7 +64,6 @@ photo_urls = [
     some_provider_fields: "Provider #{i + 1} details"
   )
 
-
   family = Family.new(
     members: members_options[i],
     location: locations[i],
@@ -68,7 +76,7 @@ photo_urls = [
 
   file = URI.parse(photo_urls[i]).open
   family.photo.attach(io: file, filename: "#{members_options[i]}.png", content_type: "image/png")
-  family.save
+  family.save!
 end
 
 puts "🌸 Seeded 10 providers and their beautiful families with special ratings and descriptions!"
