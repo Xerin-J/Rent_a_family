@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :guests
   devise_for :users
 
   root to: "pages#home" # ← Keep only one root
@@ -11,7 +12,7 @@ Rails.application.routes.draw do
   end
 
   #Guests
-  resources :guests, only: [:index]
+  resources :guests, only: [:new, :create, :show]
 
   # Provider
   resources :providers, only: [:index, :new, :create, :update]

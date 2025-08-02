@@ -1,0 +1,28 @@
+<h1 class="text-center mt-4 mb-4">Create Your Guest Profile</h1>
+
+<%= simple_form_for(@guest, html: { class: "container mt-5", style: "max-width: 600px;" }) do |f| %>
+  <% if @guest.errors.any? %>
+    <div class="alert alert-danger">
+      <h4><%= pluralize(@guest.errors.count, "error") %> prohibited this profile from being saved:</h4>
+      <ul>
+        <% @guest.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.input :first_name, required: true, label: "First Name", input_html: { class: "rounded-pill shadow-sm" } %>
+  <%= f.input :last_name, required: true, label: "Last Name", input_html: { class: "rounded-pill shadow-sm" } %>
+  <%= f.input :address, required: true, label: "Address", input_html: { class: "rounded-pill shadow-sm" } %>
+  <div class="mb-4">
+    <%= f.label :photo, "Upload 1 picture", class: "form-label fw-semibold", style: "color: #484848;" %><br>
+    <%= f.file_field :photo, class: "form-control rounded-pill shadow-sm", style: "padding: 0.75rem 1.25rem;" %>
+  </div>
+
+  <%= f.input :user_id, as: :hidden, input_html: { value: current_user.id } %>
+
+  <div class="d-flex justify-content-center mt-4">
+    <%= f.button :submit, "Create Profile", class: "btn btn-danger rounded-pill px-5 shadow-sm" %>
+  </div>
+<% end %>
