@@ -6,7 +6,6 @@ class BookingsController < ApplicationController
   def new
     @family = Family.find(params[:family_id])
     @booking = Booking.new
-    @booked_dates = Booking.pluck(:start_time).map { |d| d.to_date.strftime("%Y-%m-%d") }
   end
 
   def create

@@ -11,12 +11,12 @@ export default class extends Controller {
     today.setHours(0, 0, 0, 0)
 
     flatpickr(this.element, {
-      dateFormat: "Y-m-d H:i",
+      dateFormat: "Y-m-d",
       minDate: "today",
       disable: [
         (date) => {
-          if (date <= today) return true
-          const ds = date.toISOString().slice(0, 10)
+          if (date < today) return true
+          const ds = date.toLocaleDateString("en-CA").slice(0, 10)
           return bookedDates.includes(ds)
         }
       ],
