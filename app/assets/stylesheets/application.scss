@@ -10,3 +10,7 @@
 // Your CSS partials
 @import "components/index";
 @import "pages/index";
+
+.hidden.booking_status {
+  margin-bottom: 0 !important;
+}

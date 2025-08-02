@@ -6,8 +6,8 @@ class GuestsController < ApplicationController
       @bookings = current_user.guest.bookings.includes(:family)
     else
       @bookings = []
+    end
   end
-end
 
   def new
     @guest = Guest.new

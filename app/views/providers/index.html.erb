@@ -141,9 +141,9 @@
               <% nights = (end_date - start_date).to_i %>
 
               <% if end_date == start_date %>
-                On: <em><%= start_date.strftime('%b %-d') %></em><br>
+                On: <em><%= start_date.strftime('%b %-d, %Y') %></em><br>
               <% else %>
-                <%= "#{start_date.strftime('%b %-d')} – #{end_date.strftime('%-d')} (#{nights} #{'night'.pluralize(nights)})" %><br>
+                <%= "#{start_date.strftime('%b %-d, %Y')} – #{end_date.strftime('%-d')} (#{nights} #{'night'.pluralize(nights)})" %><br>
               <% end %>
 
               Start Time: <em><%= booking.start_hour.strftime("%H:%M") %></em><br>
@@ -156,14 +156,18 @@
             <% if booking.pending? %>
               <div class="d-flex justify-content-center gap-2 mt-2">
                 <%= simple_form_for booking, url: family_booking_path(booking.family, booking), method: :patch do |f| %>
-                  <%= f.input :status, as: :hidden, input_html: { value: 'confirmed' } %>
+                  <%= f.input :status, as: :hidden, input_html: { value: 'confirmed', class: 'mb-0' } %>
                   <%= f.submit 'Accept', class: 'btn btn-outline-success rounded-pill px-4' %>
                 <% end %>
 
                 <%= simple_form_for booking, url: family_booking_path(booking.family, booking), method: :patch do |f| %>
-                  <%= f.input :status, as: :hidden, input_html: { value: 'cancelled' } %>
+                  <%= f.input :status, as: :hidden, input_html: { value: 'cancelled', class: 'mb-0' } %>
                   <%= f.submit 'Reject', class: 'btn btn-outline-danger rounded-pill px-4' %>
                 <% end %>
+              </div>
+             <% else %> 
+             <div class="text-center d-flex justify-content-center mt-2">
+                <span class="btn btn-outline-danger rounded-pill px-4">Confirmed</span>
               </div>
             <% end %>
 
