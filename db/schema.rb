@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_07_31_114825) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_02_021802) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -86,6 +86,19 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_31_114825) do
     t.index ["user_id"], name: "index_providers_on_user_id"
   end
 
+  create_table "reviews", force: :cascade do |t|
+    t.string "content"
+    t.integer "rating"
+    t.bigint "family_id", null: false
+    t.bigint "user_id", null: false
+    t.bigint "booking_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["booking_id"], name: "index_reviews_on_booking_id"
+    t.index ["family_id"], name: "index_reviews_on_family_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "username"
     t.string "password_digest"
@@ -109,4 +122,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_07_31_114825) do
   add_foreign_key "families", "providers"
   add_foreign_key "families", "users"
   add_foreign_key "providers", "users"
+  add_foreign_key "reviews", "bookings"
+  add_foreign_key "reviews", "families"
+  add_foreign_key "reviews", "users"
 end

@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
   <div class="container-fluid">
-    
+
     <%= link_to "Rent Your Family", root_path, class: "navbar-brand text-white fw-bold" %>
 
     <div class="ms-auto d-flex gap-2">
@@ -33,6 +33,7 @@
                   <p class="mb-1"><strong>Start:</strong> <%= booking.start_time.strftime("%B %d, %Y") %></p>
                   <p class="mb-1"><strong>End:</strong> <%= booking.end_time.strftime("%B %d, %Y") %></p>
 
+                  <% if booking.status == 4 && booking.review.present? %>
                 </div>
                 <div class="mb-3">
                 <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{booking.family.members}", alt: "Random family", class: "img-placeholder rounded", width: 150, height: 150  %>

@@ -1,0 +1,7 @@
+<div class="container">
+  <%= simple_form_for @reviews do |r| %>
+  <%= r.input :content %>
+  <%= r.collection_radio_buttons :rating, [[1, "1"],[2, "2"],[3,"3"],[4, "4"],[5, "5"]], :first, :last %>
+  <%= r.submit %>
+  <% end %>
+</div>

@@ -10,10 +10,12 @@ Rails.application.routes.draw do
     resources :bookings, only: [:index, :show, :new, :create]
   end
 
-  #Guests
+  # Guests
   resources :guests, only: [:index]
 
   # Provider
   resources :providers, only: [:index, :new, :create, :update]
-end
 
+  # reviews
+  resources :reviews, only: [:index, :new, :create, :destroy]
+end
