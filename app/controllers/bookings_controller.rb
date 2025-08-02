@@ -8,9 +8,13 @@ class BookingsController < ApplicationController
     @booking = Booking.new
   end
 
+    def show
+    @booking = Booking.find(params[id:])
+  end
+
   def create
     @booking = Booking.new(booking_params)
-    @booking.status = 1
+    @booking.status = 0
     @booking.user = current_user
     @booking.family = Family.find(params[:family_id])
     if @booking.save
@@ -20,12 +24,17 @@ class BookingsController < ApplicationController
     end
   end
 
-  def show
-    @booking = Booking.find(params[id:])
+  def update
+    @booking = Booking.find(params[:id])
+    if @booking.update(booking_params)
+      redirect_to providers_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
   end
 
   private
   def booking_params
-    params.require(:booking).permit(:start_time, :end_time, :start_hour, :end_hour, :total_cost)
+    params.require(:booking).permit(:start_time, :end_time, :start_hour, :end_hour, :total_cost, :status)
   end
 end
