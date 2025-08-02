@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_08_02_031647) do
+ActiveRecord::Schema[7.1].define(version: 2025_08_02_051815) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -49,14 +49,14 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_02_031647) do
     t.string "event_type"
     t.integer "total_cost"
     t.integer "status", default: 0
-    t.bigint "user_id", null: false
     t.bigint "family_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.time "start_hour"
     t.time "end_hour"
+    t.bigint "guest_id", null: false
     t.index ["family_id"], name: "index_bookings_on_family_id"
-    t.index ["user_id"], name: "index_bookings_on_user_id"
+    t.index ["guest_id"], name: "index_bookings_on_guest_id"
   end
 
   create_table "families", force: :cascade do |t|
@@ -73,6 +73,17 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_02_031647) do
     t.string "photo_url"
     t.index ["provider_id"], name: "index_families_on_provider_id"
     t.index ["user_id"], name: "index_families_on_user_id"
+  end
+
+  create_table "guests", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.string "first_name"
+    t.string "fields"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "last_name"
+    t.string "address"
+    t.index ["user_id"], name: "index_guests_on_user_id"
   end
 
   create_table "providers", force: :cascade do |t|
@@ -97,6 +108,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_02_031647) do
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
     t.string "role"
+    t.string "first_name"
+    t.string "last_name"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
@@ -105,8 +118,9 @@ ActiveRecord::Schema[7.1].define(version: 2025_08_02_031647) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "bookings", "families"
-  add_foreign_key "bookings", "users"
+  add_foreign_key "bookings", "guests"
   add_foreign_key "families", "providers"
   add_foreign_key "families", "users"
+  add_foreign_key "guests", "users"
   add_foreign_key "providers", "users"
 end
