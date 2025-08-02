@@ -71,13 +71,13 @@
         <!--Start time-->
         <div class="col-md-6">
           <%= b.input :start_time, label: "Start Time" , as: :string, input_html: { data: { controller: "datepicker" ,
-            calculation_target: "startTime" , action: "input->calculation#calculate" }, class: "form-control" } %>
+            datepicker_booked_dates_value: @booked_dates, calculation_target: "startTime" , action: "input->calculation#calculate" }, class: "form-control" } %>
         </div>
 
         <!--End time-->
         <div class="col-md-6">
           <%= b.input :end_time, label: "End Time" , as: :string, input_html: { data: { controller: "datepicker" ,
-            calculation_target: "endTime" , action: "input->calculation#calculate" }, class: "form-control" } %>
+            datepicker_booked_dates_value: @booked_dates, calculation_target: "endTime" , action: "input->calculation#calculate" }, class: "form-control" } %>
         </div>
 
         <!--Start hour-->

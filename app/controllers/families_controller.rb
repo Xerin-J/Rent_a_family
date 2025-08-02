@@ -13,6 +13,7 @@ class FamiliesController < ApplicationController
   def show
     @family = Family.find(params[:id])
     @booking = Booking.new
+    @booked_dates = @family.bookings.pluck(:start_time).map { |d| d.strftime("%Y-%m-%d") }
   end
 
   def new
@@ -55,7 +56,7 @@ class FamiliesController < ApplicationController
    rescue ActiveRecord::InvalidForeignKey
     redirect_to providers_path, alert: "This family has existing bookings and cannot be deleted."
    end
-  end 
+  end
 
   private
 
