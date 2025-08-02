@@ -10,7 +10,8 @@ class ReviewsController < ApplicationController
   def create
     @reviews = Review.new(review_params)
     @reviews.user = current_user
-    @reviews.family = Family.find(params[:family_id])
+    @booking = Booking.find(review_params[:booking_id])
+    @reviews.family = @booking.family
     if @reviews.save
       redirect_to families_path, notice: "Thanks for your review"
     else
@@ -25,6 +26,6 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:content, :rating)
+    params.require(:review).permit(:content, :rating, :booking_id )
   end
 end

@@ -33,7 +33,19 @@
                   <p class="mb-1"><strong>Start:</strong> <%= booking.start_time.strftime("%B %d, %Y") %></p>
                   <p class="mb-1"><strong>End:</strong> <%= booking.end_time.strftime("%B %d, %Y") %></p>
 
-                  <% if booking.status == 4 && booking.review.present? %>
+                  <% if booking.can_write_review %>
+                    <div>
+                      <%= simple_form_for booking.create_review do |r| %>
+                      <%= r.input :content %>
+                      <%= r.collection_radio_buttons :rating, [[1, "1"],[2, "2"],[3,"3"],[4, "4"],[5, "5"]], :first, :last %>
+                      <%= r.submit %>
+                      <%= r.hidden_field :booking_id, value: booking.id %>
+                    </div>
+                  <% elsif booking.review %>
+                    <div>
+                      <p><%=  %></p>
+                    </div>
+                  <% end %>
                 </div>
                 <div class="mb-3">
                 <%= image_tag "https://image.pollinations.ai/prompt/japanese_family_called_#{booking.family.members}", alt: "Random family", class: "img-placeholder rounded", width: 150, height: 150  %>
