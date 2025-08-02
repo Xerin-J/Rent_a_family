@@ -13,4 +13,62 @@
     <%= b.button :submit, "Book this family", class: "btn btn-primary" %>
   </div>
 <% end %>
+
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css" />
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const bookedDates = <%= raw @booked_dates.to_json %>;
+
+      flatpickr("input[name='booking[start_time]']", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+        disable: [
+          function(date) {
+            const now = new Date();
+            if (date < new Date(now.getFullYear(), now.getMonth(), now.getDate())) {
+              return true;
+            }
+            const dateStr = date.toISOString().slice(0, 10);
+            return bookedDates.includes(dateStr);
+          }
+        ],
+        onChange: function(selectedDates) {
+          if (selectedDates.length === 0) return;
+
+          const selectedDate = selectedDates[0];
+          const now = new Date();
+
+          if (selectedDate.toDateString() === now.toDateString()) {
+            let minHour = now.getHours();
+            let minMinute = Math.ceil(now.getMinutes() / 15) * 15;
+            if (minMinute === 60) {
+              minHour += 1;
+              minMinute = 0;
+            }
+            const minTimeStr = `${String(minHour).padStart(2, '0')}:${String(minMinute).padStart(2, '0')}`;
+            this.set('minTime', minTimeStr);
+          } else {
+            this.set('minTime', '00:00');
+          }
+
+          if (endPicker.selectedDates.length > 0) {
+            const endDate = endPicker.selectedDates[0];
+            if (endDate < selectedDate) {
+              endPicker.clear();
+            }
+          }
+          endPicker.set('minDate', selectedDate);
+        }
+      });
+
+      const endPicker = flatpickr("input[name='booking[end_time]']", {
+        enableTime: true,
+        dateFormat: "Y-m-d H:i",
+        minDate: "today",
+      });
+    });
+  </script>
 </div>
