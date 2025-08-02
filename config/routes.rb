@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   # Families
   resources :families, only: [:index, :show, :new, :create, :edit, :update, :destroy] do
-    resources :bookings, only: [:index, :show, :new, :create]
+    resources :bookings, only: [:index, :show, :new, :create, :update]
   end
 
   #Guests

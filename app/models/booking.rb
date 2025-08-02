@@ -2,6 +2,8 @@ class Booking < ApplicationRecord
   belongs_to :user
   belongs_to :family
 
+  enum status: { pending: 0, confirmed: 1, cancelled: 2 }
+
   validates :start_time, presence: true
   validates :end_time, presence: true
   # validates :location, presence: true
