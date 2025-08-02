@@ -14,4 +14,8 @@ class Family < ApplicationRecord
   using: {
     tsearch: { prefix: true }
   }
+
+  def confirmed_bookings
+    bookings.confirmed
+  end
 end

@@ -85,8 +85,9 @@
 
           <!-- Bookings -->
           <% if current_user.provider.family.present? %>
-            <% if current_user.provider.family.bookings.present? %>
-              <h6 class="mb-1 text-center"><strong><%= current_user.provider.family.bookings.count %></strong></h6>
+            <% confirmed_bookings = current_user.provider.family.bookings.select(&:confirmed?) %>
+            <% if confirmed_bookings.present? %>
+              <h6 class="mb-1 text-center"><strong><%= confirmed_bookings.count %></strong></h6>
               <% if current_user.provider.family.bookings.count <= 1 %>
                 <p class="text-muted text-center" style="font-size: 0.75rem;">Booking</p>
               <% else %>
@@ -98,12 +99,79 @@
               <p class="text-muted text-center" style="font-size: 0.75rem;">Bookings</p>
               <hr>
             <% end %>
+
+            <!--Earnings -->
+            <% if current_user.provider.family.confirmed_bookings.present? %>
+              <% total_earnings = current_user.provider.family.confirmed_bookings.sum(&:total_cost) %>
+              <h6 class="mb-0 text-center"><strong>¥<%= number_with_delimiter(total_earnings) %></strong></h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Earnings</p>
+              <hr>
+            <% else %>
+              <h6 class="text-muted text-center"></h6>
+              <p class="text-muted text-center" style="font-size: 0.75rem;">Total Earnings</p>
+              <hr>
+            <% end %>
+
+
           <% end %>
         </div>
       </div>
     <% else %>
       <p class="text-center text-muted m-0">Provider profile not created yet</p>
     <% end %>
-
   </div>
 </div>
+
+<div class="container-fluid mt-4">
+  <div class="border w-100 shadow-sm bg-white mb-4" style="border-radius: 20px;">
+    <h6 class="text-muted text-center mt-4" style="font-size: 1.0rem;">Bookings</h6>
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 m-4">
+  <% if current_user.provider && current_user.provider.family %>
+    <% current_user.provider.family.bookings.reject(&:cancelled?).each do |booking| %>
+      <div class="col">
+        <div class="border p-3 w-100 shadow-sm bg-white" style="border-radius: 20px;">
+          <div class="card-body">
+            <h5 class="card-title text-center">Guest: <%= booking.user_id %></h5>
+
+            <p class="card-text text-center">
+              Booking for <em><%= booking.family.location %></em><br>
+
+              <% start_date = booking.start_time %>
+              <% end_date = booking.end_time %>
+              <% nights = (end_date - start_date).to_i %>
+
+              <% if end_date == start_date %>
+                On: <em><%= start_date.strftime('%b %-d') %></em><br>
+              <% else %>
+                <%= "#{start_date.strftime('%b %-d')} – #{end_date.strftime('%-d')} (#{nights} #{'night'.pluralize(nights)})" %><br>
+              <% end %>
+
+              Start Time: <em><%= booking.start_hour.strftime("%H:%M") %></em><br>
+              End Time: <em><%= booking.end_hour.strftime("%H:%M") %></em><br>
+
+              Event: <%= booking.family.event_type %><br>
+              Cost: <strong>¥<%= number_with_delimiter(booking.total_cost) %></strong>
+            </p>
+
+            <% if booking.pending? %>
+              <div class="d-flex justify-content-center gap-2 mt-2">
+                <%= simple_form_for booking, url: family_booking_path(booking.family, booking), method: :patch do |f| %>
+                  <%= f.input :status, as: :hidden, input_html: { value: 'confirmed' } %>
+                  <%= f.submit 'Accept', class: 'btn btn-outline-success rounded-pill px-4' %>
+                <% end %>
+
+                <%= simple_form_for booking, url: family_booking_path(booking.family, booking), method: :patch do |f| %>
+                  <%= f.input :status, as: :hidden, input_html: { value: 'cancelled' } %>
+                  <%= f.submit 'Reject', class: 'btn btn-outline-danger rounded-pill px-4' %>
+                <% end %>
+              </div>
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>   
+  </div>
+ </div> 
