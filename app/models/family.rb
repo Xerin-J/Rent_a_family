@@ -1,5 +1,6 @@
 class Family < ApplicationRecord
   has_many :bookings
+  has_many :reviews
   belongs_to :provider, class_name: "Provider"
   has_one_attached :photo
 

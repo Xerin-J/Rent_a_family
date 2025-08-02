@@ -16,5 +16,7 @@ Rails.application.routes.draw do
 
   # Provider
   resources :providers, only: [:index, :new, :create, :update]
-end
 
+  # reviews
+  resources :reviews, only: [:index, :new, :create, :destroy]
+end

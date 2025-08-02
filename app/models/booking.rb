@@ -1,6 +1,7 @@
 class Booking < ApplicationRecord
   belongs_to :guest
   belongs_to :family
+  has_one :review
 
   enum status: { pending: 0, confirmed: 1, cancelled: 2 }
 
@@ -13,6 +14,9 @@ class Booking < ApplicationRecord
   # validate :start_time_cannot_be_in_the_past
   # validate :end_after_start
 
+  def can_write_review
+    status == "confirmed" && review.nil? && Time.now > end_time
+  end
   private
 
   def start_time_cannot_be_past

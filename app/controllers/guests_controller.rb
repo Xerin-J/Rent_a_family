@@ -1,9 +1,11 @@
 class GuestsController < ApplicationController
- def index
-  if current_user&.guest
-    @bookings = current_user.guest.bookings.includes(:family)
-  else
-    @bookings = []
+
+  def index
+    @reviews = Review.new
+    if current_user&.guest
+      @bookings = current_user.guest.bookings.includes(:family)
+    else
+      @bookings = []
   end
 end
 
