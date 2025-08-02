@@ -1,21 +1,21 @@
 <nav class="navbar navbar-expand-lg" style="background-color: #FF5A5F;">
   <div class="container-fluid">
-    <div class="d-flex gap-4">
-      <%= link_to "Rent Your Family" , root_path, class: "navbar-brand text-white fw-bold" %>
-    </div>
+    
+    <%= link_to "Rent Your Family", root_path, class: "navbar-brand text-white fw-bold" %>
 
     <div class="ms-auto d-flex gap-2">
       <% if user_signed_in? %>
-        <%= link_to "Logout" , destroy_user_session_path, method: :delete, data: { turbo_method: :delete },
-          class: "btn btn-light fw-semibold text-danger" %>
-          <% if current_user.role=="provider" %>
-            <%= link_to "Dashboard" , providers_path, class: "btn btn-light fw-semibold text-danger" %>
-              <% end %>
-                <% else %>
-                  <%= link_to "Login" , new_user_session_path, class: "btn btn-light fw-semibold text-danger" %>
-                    <%= link_to "Register Your Family" , new_provider_path,
-                      class: "btn btn-light fw-semibold text-danger" %>
-                      <% end %>
+          <% if current_user.role == "provider"%>
+        <%= link_to "Dashboard", providers_path, class: "btn btn-light fw-semibold text-danger" %>
+          <% end %>
+           <% if current_user.role == "guest"%>
+        <%= link_to "Dashboard", guests_path, class: "btn btn-light fw-semibold text-danger" %>
+          <% end %>
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, data: { turbo_method: :delete }, class: "btn btn-light fw-semibold text-danger" %>
+      <% else %>
+        <%= link_to "Login", new_user_session_path, class: "btn btn-light fw-semibold text-danger" %>
+        <%= link_to "Register Your Family", new_provider_path, class: "btn btn-light fw-semibold text-danger" %>
+      <% end %>
     </div>
   </div>
 </nav>
